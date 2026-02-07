@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CuddleMe - Your Comfort Plushie</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;600;800&family=Nunito:wght@400;600;800&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="background-hearts" id="background-hearts"></div>
+
+    <div class="background-hearts" id="background-hearts"></div>
+
+    <!-- Candy Counter -->
+    <div class="candy-counter" id="candy-counter" title="Candies Collected">
+        🍬 <span id="candy-count">0</span>
+    </div>
+
+    <!-- Wardrobe (Hidden initially or toggleable) -->
+    <div class="wardrobe-panel glass-card" id="wardrobe-panel">
+        <h3>Dress Up 🎀</h3>
+        <div class="wardrobe-items">
+            <div class="wardrobe-item locked" data-item="bow" data-cost="5" title="Cost: 5 Candies">🎀</div>
+            <div class="wardrobe-item locked" data-item="hat" data-cost="10" title="Cost: 10 Candies">🧢</div>
+            <div class="wardrobe-item locked" data-item="scarf" data-cost="15" title="Cost: 15 Candies">🧣</div>
+            <div class="wardrobe-item locked" data-item="crown" data-cost="20" title="Cost: 20 Candies">👑</div>
+        </div>
+        <p class="wardrobe-hint">Earn candies to unlock!</p>
+    </div>
+
+    <!-- Day/Night Toggle -->
+    <button id="theme-toggle" class="theme-toggle" title="Switch Theme">☀️</button>
+
+    <!-- Happiness Meter -->
+    <div class="meter-container">
+        <div class="meter-label">
+            <span>😔</span>
+            <span>Happiness Level</span>
+            <span>😊</span>
+        </div>
+        <div class="meter-bar">
+            <div class="meter-fill" id="happiness-fill" style="width: 20%;"></div>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <header>
+            <h1>CuddleMe</h1>
+            <div class="top-controls">
+                <button id="follow-toggle" class="icon-toggle active" title="Follow Mode">🐾</button>
+                <button id="breathe-btn" class="icon-toggle" title="Breathing Mode">🌬️</button>
+            </div>
+        </header>
+
+        <main>
+            <div class="plushie-section">
+                <div class="speech-bubble" id="speech-bubble">
+                    <p id="plushie-text">Hi there! I'm here for you. 💕</p>
+                </div>
+
+                <div class="plushie-wrapper" id="plushie-wrapper">
+                    <!-- The Plushie -->
+                    <div class="accessories-container" id="accessories-container"></div>
+                    <div class="plushie" id="plushie">
+                        <div class="ear left"></div>
+                        <div class="ear right"></div>
+                        <div class="head">
+                            <div class="face">
+                                <div class="eye left">
+                                    <div class="pupil"></div>
+                                    <div class="shine"></div>
+                                </div>
+                                <div class="eye right">
+                                    <div class="pupil"></div>
+                                    <div class="shine"></div>
+                                </div>
+                                <div class="cheeks left"></div>
+                                <div class="cheeks right"></div>
+                                <div class="snout">
+                                    <div class="nose"></div>
+                                    <div class="mouth"></div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="body">
+                            <div class="belly"></div>
+                            <div class="arm left"></div>
+                            <div class="arm right"></div>
+                            <div class="leg left"></div>
+                            <div class="leg right"></div>
+                        </div>
+                        <div class="effects-overlay" id="effects-overlay"></div>
+                    </div>
+                    <div class="shadow"></div>
+                </div>
+
+                <!-- Feeding Area -->
+                <div class="feeding-area">
+                    <button class="food-btn" onclick="feed('cookie')" title="Give Cookie">🍪</button>
+                    <button class="food-btn" onclick="feed('strawberry')" title="Give Strawberry">🍓</button>
+                    <button class="food-btn" onclick="feed('cupcake')" title="Give Cupcake">🧁</button>
+                </div>
+            </div>
+
+            <div class="interaction-area glass-card">
+                <!-- Moods -->
+                <div class="mood-buttons">
+                    <button class="mood-btn sad" onclick="setMood('sad')">🌧️ Sad</button>
+                    <button class="mood-btn tired" onclick="setMood('tired')">😴 Tired</button>
+                    <button class="mood-btn miss" onclick="setMood('miss')">💔 Miss You</button>
+                    <button class="mood-btn happy" onclick="setMood('happy')">😍 Excited</button>
+                </div>
+
+                <!-- Primary Actions -->
+                <div class="primary-actions">
+                    <button class="hug-btn" id="hug-btn" onclick="giveHug()">
+                        🤗 Hug Me
+                    </button>
+                    <button class="surprise-btn" onclick="surpriseMe()">
+                        🎁 Make Me Smile
+                    </button>
+                </div>
+
+                <!-- Personalization -->
+                <div class="personalization">
+                    <input type="text" id="name-input" placeholder="What's your name?" autocomplete="off">
+                </div>
+
+                <!-- Diary Trigger -->
+                <button class="diary-btn" onclick="openDiary()">📖 Write in Diary</button>
+            </div>
+        </main>
+
+        <footer>
+            <button id="music-toggle" class="icon-btn" title="Toggle Music">🎵</button>
+            <audio id="bg-music" loop>
+                <source src="https://opengameart.org/sites/default/files/Puppy_Love_Loop.mp3" type="audio/mpeg">
+            </audio>
+        </footer>
+    </div>
+
+    <!-- Breathing Filter Overlay -->
+    <div class="breathing-overlay" id="breathing-overlay">
+        <div class="breathing-circle">
+            <span id="breathing-text">Inhale...</span>
+        </div>
+        <button class="close-overlay-btn" onclick="stopBreathing()">Exit</button>
+    </div>
+
+    <!-- Diary Modal -->
+    <div class="modal-overlay" id="diary-modal">
+        <div class="modal glass-card">
+            <h3>Comfort Diary 📔</h3>
+            <p>What's on your mind? I'm listening...</p>
+            <textarea id="diary-input" placeholder="Pour your heart out here..."></textarea>
+            <div class="modal-buttons">
+                <button class="close-btn" onclick="closeDiary()">Cancel</button>
+                <button class="submit-btn" onclick="submitDiary()">Share with Plushie</button>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
